@@ -125,6 +125,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn }) => {
               <Route className="w-4 h-4 text-sustainability-green" />
               <span>GreenTwin</span>
             </a>
+            <a
+              href="/fueltrust"
+              className="px-3 py-2 text-sm font-medium text-warm-white/90 hover:text-warm-white hover:bg-maritime-surface/80 rounded-lg border border-maritime-border/60 hover:border-sustainability-green/50 transition-all flex items-center gap-1.5"
+            >
+              <ShieldCheck className="w-4 h-4 text-sustainability-green" />
+              <span>FuelTrust</span>
+            </a>
             <button
               onClick={onOpenSignIn}
               type="button"
@@ -186,6 +193,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn }) => {
             >
               <Route className="w-4 h-4 text-sustainability-green" />
               <span>GreenTwin — Voyage Planning</span>
+            </a>
+            <a
+              href="/fueltrust"
+              className="w-full py-2.5 px-4 rounded-lg text-sm font-medium text-center text-warm-white border border-sustainability-green/40 hover:bg-maritime-surface flex items-center justify-center gap-2"
+            >
+              <ShieldCheck className="w-4 h-4 text-sustainability-green" />
+              <span>FuelTrust — Fuel Verification</span>
             </a>
             <button
               onClick={() => {

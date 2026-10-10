@@ -135,11 +135,11 @@ export const FuelRecordModal: React.FC<FuelRecordModalProps> = ({
         {/* Evidence Documents List */}
         <div className="mb-6">
           <h4 className="text-xs font-bold uppercase tracking-wider text-maritime-dark mb-2.5 flex items-center justify-between">
-            <span>Supporting Digital Evidence ({record.evidenceDocuments.length})</span>
+            <span>Supporting Digital Evidence ({record.evidenceDocuments?.length || 0})</span>
             <span className="text-[10px] text-slate-muted font-normal">Corridor Hash Chain</span>
           </h4>
           <div className="space-y-2">
-            {record.evidenceDocuments.map((doc, idx) => (
+            {(record.evidenceDocuments || []).map((doc, idx) => (
               <div
                 key={idx}
                 className="p-2.5 rounded-xl bg-white border border-slate-subtle/80 flex items-center justify-between hover:bg-slate-50 transition-colors text-xs"

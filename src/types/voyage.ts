@@ -1,6 +1,13 @@
 export type VoyageStatus = 'Scheduled' | 'In Transit' | 'Berthing' | 'Completed' | 'Anchored' | 'Draft';
 
-export type FuelVerificationStatus = 'Verified' | 'Pending Review' | 'Flagged' | 'Draft';
+export type FuelVerificationStatus =
+  | 'Verified'
+  | 'Pending Review'
+  | 'Under Review'
+  | 'Flagged'
+  | 'Rejected'
+  | 'Additional Evidence Required'
+  | 'Draft';
 
 export type VesselType = 'Container Ship' | 'Bulk Carrier' | 'Tanker' | 'General Cargo';
 

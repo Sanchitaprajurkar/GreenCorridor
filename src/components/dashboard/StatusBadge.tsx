@@ -14,9 +14,14 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm' })
         return 'bg-mint-soft text-sustainability-hover border-sustainability-green/40';
       case 'Pending Review':
         return 'bg-amber-50 text-amber-800 border-amber-300';
+      case 'Under Review':
+        return 'bg-sky-50 text-sky-800 border-sky-300';
       case 'Flagged':
+        return 'bg-amber-100/70 text-orange-800 border-orange-300';
+      case 'Additional Evidence Required':
+        return 'bg-yellow-50 text-amber-900 border-amber-300';
       case 'Rejected':
-        return 'bg-rose-50 text-rose-700 border-rose-200';
+        return 'bg-rose-50 text-rose-700 border-rose-300';
       case 'Draft':
         return 'bg-slate-100 text-slate-600 border-slate-200';
 
@@ -43,8 +48,12 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm' })
       case 'Completed':
         return 'bg-sustainability-green';
       case 'Pending Review':
+      case 'Additional Evidence Required':
         return 'bg-amber-500';
+      case 'Under Review':
+        return 'bg-sky-500 animate-pulse';
       case 'Flagged':
+        return 'bg-orange-500';
       case 'Rejected':
         return 'bg-rose-500';
       case 'In Transit':
