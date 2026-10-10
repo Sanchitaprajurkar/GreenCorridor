@@ -49,3 +49,51 @@
     linear-gradient(to right, rgba(223, 242, 229, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(223, 242, 229, 0.05) 1px, transparent 1px);
 }
+
+/* Shipping route draw animation */
+@keyframes drawShippingRoute {
+  0% {
+    stroke-dashoffset: 1200;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-route-draw {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawShippingRoute 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Vessel pulse on route */
+@keyframes vesselPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.animate-vessel-pulse {
+  animation: vesselPulse 3s ease-in-out infinite;
+}
+
+/* Staggered entrance helper */
+@keyframes fadeInUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUpReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
