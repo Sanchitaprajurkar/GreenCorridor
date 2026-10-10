@@ -4,6 +4,7 @@ import { Dashboard } from './pages/Dashboard';
 import { ModuleView } from './pages/ModuleView';
 import { GreenTwin } from './features/voyages/GreenTwin';
 import { FuelTrust } from './features/fuel/FuelTrust';
+import { SmartDock } from './features/port/SmartDock';
 
 function App() {
   return (
@@ -20,12 +21,15 @@ function App() {
         <Route path="/fueltrust" element={<FuelTrust />} />
         <Route path="/dashboard/fueltrust" element={<FuelTrust />} />
 
+        {/* SmartDock Dedicated Feature Page */}
+        <Route path="/smartdock" element={<SmartDock />} />
+        <Route path="/dashboard/smartdock" element={<SmartDock />} />
+
         {/* Corridor Operations Dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/:moduleKey" element={<ModuleView />} />
 
         {/* Module deep-links navigate to their dashboard views */}
-        <Route path="/smartdock" element={<ModuleView />} />
         <Route path="/greenpulse" element={<ModuleView />} />
 
         {/* Fallback */}

@@ -58,6 +58,7 @@ export const Home: React.FC = () => {
         <HeroSection
           onExploreClick={() => scrollToSection('platform')}
           onHowItWorksClick={() => scrollToSection('how-it-works')}
+          onSelectRole={(role) => handleOpenRoleModal(role)}
         />
 
         {/* Section 4: Corridor Context Strip */}

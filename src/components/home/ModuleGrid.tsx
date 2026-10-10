@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModuleCard } from './ModuleCard';
 import { MODULE_ITEMS } from '../../data/homeData';
-import { Layers, ArrowRightLeft } from 'lucide-react';
+import { Layers, ArrowRightLeft, Users } from 'lucide-react';
 
 interface ModuleGridProps {
   onModuleSelect?: (moduleId: string) => void;
@@ -9,19 +9,20 @@ interface ModuleGridProps {
 
 export const ModuleGrid: React.FC<ModuleGridProps> = ({ onModuleSelect }) => {
   return (
-    <section id="platform" className="py-20 lg:py-28 bg-white border-y border-slate-subtle/80 relative">
+    <section id="platform" className="py-20 lg:py-28 bg-[#FAFBF8] border-y border-[#E8ECE7] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header with Humanized Copywriting */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-sustainability-green bg-mint-pale px-3 py-1 rounded-full border border-mint-border inline-block">
-            ONE PLATFORM. FOUR CONNECTED CAPABILITIES.
+          <span className="text-xs font-bold uppercase tracking-wider text-[#2F8F68] bg-[#EAF7EE] px-4 py-1.5 rounded-full border border-[#A7DCBF]/60 inline-flex items-center gap-1.5">
+            <Users className="w-3.5 h-3.5 text-[#2F8F68]" />
+            <span>FOUR SIMPLE TOOLS DESIGNED FOR THE PEOPLE MOVING GLOBAL TRADE</span>
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-maritime-dark tracking-tight">
-            From Voyage Planning to Verified Sustainability.
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-[#102D3A] tracking-tight">
+            Designed for the Hands and Minds at the Helm.
           </h2>
-          <p className="text-base sm:text-lg text-slate-text leading-relaxed font-normal">
-            Each module solves a specific maritime challenge while sharing information with the rest of the ecosystem through a common voyage record.
+          <p className="text-base sm:text-lg text-[#52616A] leading-relaxed font-normal">
+            Whether you are calculating bunker burn on the bridge, signing off mass-flow receipts at the jetty, or scheduling quay cranes in Singapore — each tool cuts cognitive load and shares verified data.
           </p>
         </div>
 
@@ -37,29 +38,29 @@ export const ModuleGrid: React.FC<ModuleGridProps> = ({ onModuleSelect }) => {
         </div>
 
         {/* Central Record Unification Banner */}
-        <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-ocean-subtle via-mint-pale/50 to-ocean-subtle border border-ocean-border/80 flex flex-col md:flex-row items-center justify-between gap-6 shadow-subtle">
+        <div className="mt-12 p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-[#EAF7EE] via-white to-[#E2EFF8] border border-[#A7DCBF]/60 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-maritime-navy text-warm-white flex items-center justify-center shrink-0 shadow-sm">
-              <Layers className="w-6 h-6 text-sustainability-green" />
+            <div className="w-14 h-14 rounded-2xl bg-[#102D3A] text-white flex items-center justify-center shrink-0 shadow-md">
+              <Layers className="w-7 h-7 text-[#2F8F68]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h4 className="text-sm font-bold text-maritime-dark uppercase tracking-wider">
+                <h4 className="text-sm font-bold text-[#102D3A] uppercase tracking-wider">
                   Shared Corridor Voyage Identity
                 </h4>
-                <span className="text-[10px] bg-sustainability-green/20 text-sustainability-green font-bold px-2 py-0.5 rounded-full">
+                <span className="text-[10px] bg-[#2F8F68]/20 text-[#2F8F68] font-bold px-2.5 py-0.5 rounded-full">
                   Zero Data Fragmentation
                 </span>
               </div>
-              <p className="text-xs text-slate-text mt-0.5">
-                Verified fuel quantities in <strong className="text-maritime-navy">FuelTrust</strong> flow automatically into <strong className="text-maritime-navy">SmartDock</strong> port coordination and <strong className="text-maritime-navy">GreenPulse</strong> CII analytics.
+              <p className="text-xs sm:text-sm text-[#52616A] mt-1">
+                Verified fuel quantities in <strong className="text-[#102D3A]">FuelTrust</strong> flow automatically into <strong className="text-[#102D3A]">SmartDock</strong> port coordination and <strong className="text-[#102D3A]">GreenPulse</strong> CII analytics.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-maritime-navy bg-white px-4 py-2 rounded-xl border border-slate-subtle/80 shrink-0">
-            <ArrowRightLeft className="w-4 h-4 text-sustainability-green" />
-            <span>Auditable Voyage Record #VR-2026</span>
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#102D3A] bg-white px-4 py-2.5 rounded-xl border border-[#CBD5E1] shrink-0 shadow-sm">
+            <ArrowRightLeft className="w-4 h-4 text-[#2F8F68]" />
+            <span>Auditable Voyage Record #VR-2026-SG</span>
           </div>
         </div>
 
