@@ -19,7 +19,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
         
         {/* Decorative Route Graphic (India to Singapore) */}
-        <div className="inline-flex items-center gap-3 sm:gap-6 px-6 py-2.5 rounded-full bg-maritime-navy/80 border border-sustainability-green/40 shadow-card">
+        <div className="inline-flex items-center gap-3 sm:gap-6 px-6 py-2.5 rounded-full bg-white/[0.05] backdrop-blur-md border border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.4)] ring-1 ring-white/5">
           <div className="flex items-center gap-1.5 text-xs font-bold text-mint-soft">
             <MapPin className="w-3.5 h-3.5 text-sustainability-green" />
             <span>MUMBAI / CHENNAI</span>

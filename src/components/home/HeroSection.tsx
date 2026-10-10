@@ -5,14 +5,10 @@ import {
   Pause,
   X,
   Volume2,
-  Users,
   Compass,
   Ship,
   Anchor,
-  Fuel,
-  LineChart,
   CheckCircle2,
-  Clock,
   Sparkles,
   Maximize2,
   Minimize2,
@@ -29,12 +25,10 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onExploreClick,
   onHowItWorksClick,
-  onSelectRole,
 }) => {
   const [activeMediaTab, setActiveMediaTab] = useState<'mariners' | 'dock' | 'vessel'>('mariners');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [selectedPersona, setSelectedPersona] = useState<string>('Captain & Bridge Crew');
 
   // Scroll Progress State (0 to 1) for Word-by-Word Fading and Media Expansion
   const [scrollProgress, setScrollProgress] = useState<number>(0);
@@ -94,41 +88,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const currentMedia = mediaData[activeMediaTab];
 
-  const stakeholderPersonas = [
-    {
-      id: 'captain',
-      role: 'Shipping Companies',
-      label: 'Captain & Bridge Crew',
-      avatar: '👨‍✈️',
-      name: 'Capt. Deshmukh',
-      desc: 'Optimized voyage routing & fuel logs',
-    },
-    {
-      id: 'fuel',
-      role: 'Fuel Suppliers & Bunkers',
-      label: 'Bunker & Fuel Supplier',
-      avatar: '⛽',
-      name: 'Veritas Biofuel',
-      desc: 'Verified BDN & mass-balance records',
-    },
-    {
-      id: 'port',
-      role: 'Port Authorities',
-      label: 'Port Operations Master',
-      avatar: '⚓',
-      name: 'PSA Berth Ops',
-      desc: 'Just-In-Time slot synchronization',
-    },
-    {
-      id: 'trader',
-      role: 'Government & Policy Makers',
-      label: 'Cargo Trader & ESG Officer',
-      avatar: '📊',
-      name: 'Global Trade Co.',
-      desc: 'Corridor CII score & carbon rebates',
-    },
-  ];
-
   // Scroll listener for Word-by-Word Fade and Video Expansion
   useEffect(() => {
     const handleScroll = () => {
@@ -148,33 +107,32 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const effectiveProgress = isManualExpanded ? 1 : scrollProgress;
 
   // Word-by-word fade opacities based on scroll progress:
-  // Phase 1 (Progress 0.0 -> 0.55): Words fade out one by one while in FRONT of the media
   // Word 1: 'SAIL' fades out (0.00 to 0.18)
   const word1Opacity = Math.max(0, Math.min(1, 1 - effectiveProgress / 0.18));
-  const word1TranslateY = -effectiveProgress * 50;
+  const word1TranslateY = -effectiveProgress * 40;
 
   // Word 2: 'CLEANER' fades out (0.12 to 0.32)
   const word2Opacity = Math.max(0, Math.min(1, 1 - Math.max(0, effectiveProgress - 0.12) / 0.20));
-  const word2TranslateY = -effectiveProgress * 40;
+  const word2TranslateY = -effectiveProgress * 30;
 
   // Word 3: 'TOGETHER' fades out (0.26 to 0.46)
   const word3Opacity = Math.max(0, Math.min(1, 1 - Math.max(0, effectiveProgress - 0.26) / 0.20));
-  const word3TranslateY = -effectiveProgress * 30;
+  const word3TranslateY = -effectiveProgress * 25;
 
   // Word 4: 'FORWARD' fades out (0.38 to 0.56)
   const word4Opacity = Math.max(0, Math.min(1, 1 - Math.max(0, effectiveProgress - 0.38) / 0.18));
-  const word4TranslateY = -effectiveProgress * 20;
+  const word4TranslateY = -effectiveProgress * 15;
 
   // Check if text has finished fading out
   const isTextFinished = effectiveProgress >= 0.55;
 
   // Video Transformation calculation:
-  // - Starts with small width (520px / max-w-xl), blurred (8px blur), dimmed
-  // - After text finishes (progress 0.50 -> 1.0), transforms to crystal clear normal (0 blur) and expands to whole screen!
+  // Starts with small width (560px), blurred (8px blur), dimmed
+  // After text finishes (progress > 0.55), transforms to crystal clear normal (0 blur) and expands to whole screen!
   const expansionProgress = Math.min(Math.max((effectiveProgress - 0.2) / 0.8, 0), 1);
   const mediaBlur = Math.max(0, (1 - expansionProgress) * 8); // 8px -> 0px
-  const mediaBrightness = 0.72 + expansionProgress * 0.28; // 0.72 -> 1.00
-  const mediaOpacity = 0.85 + expansionProgress * 0.15; // 0.85 -> 1.00
+  const mediaBrightness = 0.75 + expansionProgress * 0.25; // 0.75 -> 1.00
+  const mediaOpacity = 0.88 + expansionProgress * 0.12; // 0.88 -> 1.00
 
   // 3D Tilt calculation on mouse move
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -185,9 +143,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // Angle of tilt up to 14 degrees
-    const tiltX = -((y - centerY) / centerY) * 14;
-    const tiltY = ((x - centerX) / centerX) * 14;
+    // Angle of tilt up to 12 degrees
+    const tiltX = -((y - centerY) / centerY) * 12;
+    const tiltY = ((x - centerX) / centerX) * 12;
 
     const glareX = (x / rect.width) * 100;
     const glareY = (y / rect.height) * 100;
@@ -216,14 +174,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     // Lively micro 3D click impulse
     setTilt((prev) => ({
       ...prev,
-      x: prev.x * 1.35,
-      y: prev.y * 1.35,
+      x: prev.x * 1.3,
+      y: prev.y * 1.3,
     }));
     setTimeout(() => {
       setTilt((prev) => ({
         ...prev,
-        x: prev.x / 1.35,
-        y: prev.y / 1.35,
+        x: prev.x / 1.3,
+        y: prev.y / 1.3,
       }));
     }, 180);
   };
@@ -256,15 +214,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* Top Eyebrow Tag + Scroll Expansion Scrub Pill */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4 sm:mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#153A4B]/90 border border-[#2F8F68]/50 text-xs sm:text-sm font-bold text-[#AEE1C2] tracking-wider uppercase backdrop-blur-md shadow-md">
+        {/* Top Eyebrow Tag + Scroll Expansion Scrub Pill (Polished Depth & Separation) */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5 sm:mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/15 text-xs sm:text-sm font-bold text-[#AEE1C2] tracking-wider uppercase backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
             <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-pulse" />
             <span>INDIA–SINGAPORE GREEN & DIGITAL SHIPPING CORRIDOR</span>
           </div>
 
           {/* Interactive Scrub / Expand Pill */}
-          <div className="inline-flex items-center gap-2 bg-[#102D3A]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-xs text-slate-300">
+          <div className="inline-flex items-center gap-2 bg-white/[0.05] backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-xs text-slate-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
             <Rotate3d className="w-3.5 h-3.5 text-[#10B981] animate-spin" style={{ animationDuration: '6s' }} />
             <span>Scroll or Click:</span>
             <button
@@ -276,7 +234,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {isManualExpanded ? (
                 <>
                   <Minimize2 className="w-3 h-3" />
-                  <span>Show Text in Front</span>
+                  <span>Show Text Framing</span>
                 </>
               ) : (
                 <>
@@ -289,19 +247,46 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         {/* =========================================================================
-            SIXES CRICKET SIGNATURE COMPOSITION:
-            - Giant Stacked Typography strictly in FRONT (z-40)
-            - Media Card starts small & blurred BEHIND text (z-20)
-            - When text finishes, media transforms to normal (0 blur) & covers whole screen!
+            SIXES CRICKET SIGNATURE COMPOSITION (POLISHED & REFINED):
+            - Typography scaled to clamp(2.75rem, 5.5vw, 5.5rem) so it frames the card cleanly
+            - Top text: SAIL CLEANER above the card
+            - Bottom text: TOGETHER FORWARD below the card
+            - Media Card starts small & blurred with subtle dark backdrop, expands on scroll
            ========================================================================= */}
-        <div className="relative text-center mx-auto min-h-[580px] sm:min-h-[660px] md:min-h-[740px] lg:min-h-[800px] flex items-center justify-center">
+        <div className="relative text-center mx-auto flex flex-col items-center justify-center">
+
+          {/* TOP TYPOGRAPHY CLUSTER: SAIL CLEANER (Clean framing above the card) */}
+          <div className="font-display font-black tracking-tight uppercase text-[#FDFBF7] drop-shadow-[0_8px_24px_rgba(0,0,0,0.85)] z-30 pointer-events-none mb-2 sm:mb-4 select-none">
+            <div
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight transition-all duration-300"
+              style={{
+                opacity: word1Opacity,
+                transform: `translateY(${word1TranslateY}px)`,
+                filter: `blur(${Math.max(0, (1 - word1Opacity) * 5)}px)`,
+              }}
+            >
+              SAIL
+            </div>
+            <div
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-none tracking-tight text-[#FAFBF8] mt-1 transition-all duration-300"
+              style={{
+                opacity: word2Opacity,
+                transform: `translateY(${word2TranslateY}px)`,
+                filter: `blur(${Math.max(0, (1 - word2Opacity) * 5)}px)`,
+              }}
+            >
+              CLEANER
+            </div>
+          </div>
 
           {/* =========================================================================
-              LAYER 1: CENTRAL 3D TILT MEDIA CARD (Behind the text initially)
-              Transforms from small & blurred to normal & whole screen as text finishes
+              CENTRAL 3D TILT MEDIA CARD
+              - overflow-hidden on container
+              - Safe inner padding on top badges to eliminate clipping
+              - Subtle border highlight (border: 1px solid rgba(255,255,255,0.12)) and warm glow
              ========================================================================= */}
           <div
-            className="relative z-20 mx-auto transition-all duration-700 ease-out flex justify-center w-full"
+            className="relative z-20 mx-auto transition-all duration-700 ease-out flex justify-center w-full my-1 sm:my-3"
             style={{
               perspective: '1200px',
             }}
@@ -311,15 +296,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               onClick={handleCardClick}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className={`relative rounded-3xl sm:rounded-[36px] overflow-hidden border-2 sm:border-4 border-[#2F8F68]/70 bg-[#102D3A] cursor-pointer group transition-all duration-500 ease-out ${
+              className={`relative rounded-3xl sm:rounded-[36px] overflow-hidden border border-white/15 hover:border-[#2F8F68]/70 bg-white/[0.04] backdrop-blur-md cursor-pointer group transition-all duration-500 ease-out ring-1 ring-white/10 ${
                 isTextFinished || isManualExpanded
-                  ? 'w-full max-w-6xl shadow-[0_30px_90px_rgba(0,0,0,0.9)]'
-                  : 'w-[90%] sm:w-[540px] md:w-[620px] shadow-[0_20px_60px_rgba(0,0,0,0.7)]'
+                  ? 'w-full max-w-6xl shadow-[0_30px_90px_rgba(0,0,0,0.95)]'
+                  : 'w-[92%] sm:w-[540px] md:w-[620px] shadow-[0_20px_60px_rgba(0,0,0,0.85)]'
               }`}
               style={{
                 transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(${
-                  isTextFinished ? 1.02 : 0.95
-                }, ${isTextFinished ? 1.02 : 0.95}, 1)`,
+                  isTextFinished ? 1.02 : 0.96
+                }, ${isTextFinished ? 1.02 : 0.96}, 1)`,
                 transformStyle: 'preserve-3d',
                 boxShadow: tilt.isHovered
                   ? '0 30px 80px rgba(16, 185, 129, 0.4), 0 20px 40px rgba(0,0,0,0.95)'
@@ -358,83 +343,81 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <div
                   className="absolute inset-0 bg-gradient-to-t from-[#0B202B] via-[#0B202B]/20 to-transparent pointer-events-none transition-opacity duration-500"
                   style={{
-                    opacity: isTextFinished ? 0.7 : 0.4,
+                    opacity: isTextFinished ? 0.75 : 0.45,
                   }}
                 />
 
-                {/* 3D Directional Blue Compass Arrow Indicator */}
-                <div
-                  className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20 flex items-center gap-2 pointer-events-none transition-opacity duration-300"
-                  style={{ transform: 'translateZ(30px)' }}
-                >
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#0B202B]/90 backdrop-blur-md border border-[#2F8F68]/60 text-xs sm:text-sm font-bold text-[#AEE1C2] shadow-xl flex items-center gap-2">
-                    {/* Live Blue 3D Tilt Arrow */}
-                    <Navigation
-                      className="w-4 h-4 text-sky-400 fill-sky-400 transition-transform duration-150"
-                      style={{
-                        transform: `rotate(${tilt.y * 3 + tilt.x * 2}deg)`,
-                      }}
-                    />
-                    <span>{currentMedia.badge}</span>
-                  </span>
+                {/* =========================================================================
+                    REFINED FLOATING PILLS TOP BAR (NEATLY ALIGNED INSIDE OVERFLOW-HIDDEN CARD)
+                    Safe inner padding: p-4 sm:p-5 (top: 16px; left: 16px) - ZERO clipping!
+                   ========================================================================= */}
+                <div className="absolute top-0 inset-x-0 p-4 sm:p-5 z-20 flex flex-wrap items-center justify-between gap-2.5 pointer-events-none">
+                  
+                  {/* Left Badges (Status & Telemetry) */}
+                  <div className="flex items-center gap-2 pointer-events-auto">
+                    <span className="px-3.5 py-1.5 rounded-full bg-[#0B202B]/90 backdrop-blur-md border border-[#2F8F68]/60 text-xs sm:text-sm font-bold text-[#AEE1C2] shadow-xl flex items-center gap-2">
+                      {/* Live Blue 3D Tilt Arrow */}
+                      <Navigation
+                        className="w-4 h-4 text-sky-400 fill-sky-400 transition-transform duration-150"
+                        style={{
+                          transform: `rotate(${tilt.y * 3 + tilt.x * 2}deg)`,
+                        }}
+                      />
+                      <span>{currentMedia.badge}</span>
+                    </span>
 
-                  {/* 3D Telemetry Pill */}
-                  <span className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-[11px] font-mono text-emerald-300">
-                    <span>HDG {currentMedia.heading}</span>
-                    <span>•</span>
-                    <span>{currentMedia.speed}</span>
-                  </span>
-                </div>
+                    {/* 3D Telemetry Pill */}
+                    <span className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-[11px] font-mono text-emerald-300">
+                      <span>HDG {currentMedia.heading}</span>
+                      <span>•</span>
+                      <span>{currentMedia.speed}</span>
+                    </span>
+                  </div>
 
-                {/* Scene Switcher Tabs (Top Right with 3D Depth) */}
-                <div
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-1.5 bg-[#0B202B]/90 backdrop-blur-md p-1.5 rounded-2xl border border-white/15 shadow-xl"
-                  style={{ transform: 'translateZ(35px)' }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setActiveMediaTab('mariners')}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                      activeMediaTab === 'mariners'
-                        ? 'bg-[#2F8F68] text-white shadow-md'
-                        : 'text-slate-300 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <Ship className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Bridge Mariners</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveMediaTab('dock')}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                      activeMediaTab === 'dock'
-                        ? 'bg-[#2F8F68] text-white shadow-md'
-                        : 'text-slate-300 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <Anchor className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Dock Team</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveMediaTab('vessel')}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                      activeMediaTab === 'vessel'
-                        ? 'bg-[#2F8F68] text-white shadow-md'
-                        : 'text-slate-300 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <Compass className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Vessel Track</span>
-                  </button>
+                  {/* Right Scene Switcher Tabs (Neatly contained with safe padding) */}
+                  <div className="flex items-center gap-1 bg-[#0B202B]/90 backdrop-blur-md p-1 rounded-2xl border border-white/15 shadow-xl pointer-events-auto">
+                    <button
+                      type="button"
+                      onClick={() => setActiveMediaTab('mariners')}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                        activeMediaTab === 'mariners'
+                          ? 'bg-[#2F8F68] text-white shadow-md'
+                          : 'text-slate-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Ship className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Bridge Mariners</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveMediaTab('dock')}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                        activeMediaTab === 'dock'
+                          ? 'bg-[#2F8F68] text-white shadow-md'
+                          : 'text-slate-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Anchor className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Dock Team</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveMediaTab('vessel')}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                        activeMediaTab === 'vessel'
+                          ? 'bg-[#2F8F68] text-white shadow-md'
+                          : 'text-slate-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Compass className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Vessel Track</span>
+                    </button>
+                  </div>
+
                 </div>
 
                 {/* CENTER GLOWING PLAY BUTTON */}
-                <div
-                  className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
-                  style={{ transform: 'translateZ(45px)' }}
-                >
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -452,12 +435,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   </button>
                 </div>
 
-                {/* Bottom Card Overlay: Human Quote & Operator Detail */}
-                <div
-                  className="absolute bottom-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-t from-[#0B202B] via-[#0B202B]/90 to-transparent z-20"
-                  style={{ transform: 'translateZ(25px)' }}
-                >
-                  <div className="bg-[#102D3A]/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-[#2F8F68]/50 shadow-2xl text-left flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                {/* Bottom Card Overlay: Human Quote & Operator Detail (Subtle Depth & Separation) */}
+                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-t from-[#0B202B] via-[#0B202B]/90 to-transparent z-20">
+                  <div className="bg-white/[0.05] backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-white/15 shadow-2xl text-left flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <p className="text-xs sm:text-sm font-semibold text-white/95 italic">
                         {currentMedia.quote}
@@ -501,69 +481,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* =========================================================================
-              LAYER 2: GIANT STACKED TYPOGRAPHY STRICTLY IN FRONT (z-40)
-              Overlaps directly in front of the video/image, cutting across the frame!
-              Fades out word-by-word as user scrolls. Once finished, video occupies screen!
-             ========================================================================= */}
-          <div className="absolute inset-0 z-40 flex flex-col justify-between items-center pointer-events-none py-2 sm:py-6 lg:py-8">
-            
-            {/* WORD 1: SAIL (In Front) */}
+          {/* BOTTOM TYPOGRAPHY CLUSTER: TOGETHER FORWARD (Clean framing below the card) */}
+          <div className="font-display font-black tracking-tight uppercase text-[#FDFBF7] drop-shadow-[0_8px_24px_rgba(0,0,0,0.85)] z-30 pointer-events-none mt-2 sm:mt-4 select-none">
             <div
-              className="font-display font-black tracking-tighter uppercase text-[#FDFBF7] drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-all duration-300"
-              style={{
-                opacity: word1Opacity,
-                transform: `translateY(${word1TranslateY}px)`,
-                filter: `blur(${Math.max(0, (1 - word1Opacity) * 6)}px)`,
-              }}
-            >
-              <span className="text-6xl sm:text-8xl md:text-9xl lg:text-[130px] xl:text-[150px] leading-[0.82] tracking-tight block">
-                SAIL
-              </span>
-            </div>
-
-            {/* WORD 2: CLEANER (In Front) */}
-            <div
-              className="font-display font-black tracking-tighter uppercase text-[#FAFBF8] drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-all duration-300 -my-2 sm:-my-4"
-              style={{
-                opacity: word2Opacity,
-                transform: `translateY(${word2TranslateY}px)`,
-                filter: `blur(${Math.max(0, (1 - word2Opacity) * 6)}px)`,
-              }}
-            >
-              <span className="text-5xl sm:text-7xl md:text-8xl lg:text-[115px] xl:text-[135px] leading-[0.82] tracking-tight block">
-                CLEANER
-              </span>
-            </div>
-
-            {/* WORD 3: TOGETHER (In Front) */}
-            <div
-              className="font-display font-black tracking-tighter uppercase text-[#FDFBF7] drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-all duration-300 -my-2 sm:-my-4"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-none tracking-tight transition-all duration-300"
               style={{
                 opacity: word3Opacity,
                 transform: `translateY(${word3TranslateY}px)`,
-                filter: `blur(${Math.max(0, (1 - word3Opacity) * 6)}px)`,
+                filter: `blur(${Math.max(0, (1 - word3Opacity) * 5)}px)`,
               }}
             >
-              <span className="text-5xl sm:text-7xl md:text-8xl lg:text-[115px] xl:text-[135px] leading-[0.82] tracking-tight block">
-                TOGETHER
-              </span>
+              TOGETHER
             </div>
-
-            {/* WORD 4: FORWARD (In Front) */}
             <div
-              className="font-display font-black tracking-tighter uppercase text-[#AEE1C2] drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-all duration-300"
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight text-[#AEE1C2] mt-1 transition-all duration-300"
               style={{
                 opacity: word4Opacity,
                 transform: `translateY(${word4TranslateY}px)`,
-                filter: `blur(${Math.max(0, (1 - word4Opacity) * 6)}px)`,
+                filter: `blur(${Math.max(0, (1 - word4Opacity) * 5)}px)`,
               }}
             >
-              <span className="text-6xl sm:text-8xl md:text-9xl lg:text-[130px] xl:text-[150px] leading-[0.82] tracking-tight block">
-                FORWARD
-              </span>
+              FORWARD
             </div>
-
           </div>
 
         </div>
@@ -609,130 +548,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         </div>
 
-        {/* =========================================================================
-            CONVERSATIONAL ONBOARDING & ROLE SELECTOR (Shift 4 from Prompt)
-            "What role are you logging in as today?" with Avatars
-           ========================================================================= */}
-        <div className="mt-14 max-w-4xl mx-auto bg-[#102D3A]/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-[#2F8F68]/40 shadow-2xl">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-5 pb-4 border-b border-white/10">
-            <div>
-              <span className="text-xs font-bold text-[#AEE1C2] uppercase tracking-wider block mb-1">
-                CONVERSATIONAL ONBOARDING
-              </span>
-              <h3 className="text-lg sm:text-xl font-display font-bold text-white flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#2F8F68]" />
-                <span>What role are you navigating as today?</span>
-              </h3>
-            </div>
-            <p className="text-xs text-slate-300 max-w-xs md:text-right">
-              Pick your profile to experience how Green Corridor customizes verified data for your duties.
-            </p>
-          </div>
-
-          {/* 4 Interactive Persona Chips */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {stakeholderPersonas.map((persona) => {
-              const isSelected = selectedPersona === persona.label;
-              return (
-                <button
-                  key={persona.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedPersona(persona.label);
-                    if (onSelectRole) onSelectRole(persona.role);
-                  }}
-                  className={`p-3.5 rounded-2xl text-left transition-all border flex flex-col justify-between group ${
-                    isSelected
-                      ? 'bg-[#153A4B] border-[#2F8F68] shadow-lg shadow-[#2F8F68]/20 ring-2 ring-[#2F8F68]/40'
-                      : 'bg-[#0B202B]/60 hover:bg-[#153A4B]/60 border-white/10 hover:border-[#2F8F68]/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-2xl p-1 bg-white/10 rounded-xl" role="img" aria-label={persona.label}>
-                      {persona.avatar}
-                    </span>
-                    {isSelected && (
-                      <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-                    )}
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-white group-hover:text-[#AEE1C2] transition-colors">
-                      {persona.label}
-                    </h4>
-                    <p className="text-[11px] text-slate-300 mt-1 leading-snug">
-                      {persona.desc}
-                    </p>
-                  </div>
-                  <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-[#AEE1C2] font-semibold">
-                    <span>{persona.name}</span>
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* =========================================================================
-            RELATABLE BENCHMARK HIGHLIGHTS (Shift 5 from Prompt)
-            Translating hard metrics into tangible real-world equivalents
-           ========================================================================= */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          
-          <div className="bg-[#102D3A]/60 backdrop-blur-sm rounded-2xl p-4 border border-[#2F8F68]/30 text-left hover:border-[#2F8F68] transition-all">
-            <div className="flex items-center justify-between text-xs text-[#AEE1C2] mb-1 font-bold">
-              <span>CO₂e ABATED</span>
-              <LineChart className="w-4 h-4 text-[#10B981]" />
-            </div>
-            <div className="text-2xl font-black text-white">16.4 kt</div>
-            <div className="mt-2 text-xs text-slate-300 leading-snug bg-[#0B202B]/70 p-2 rounded-xl border border-white/5">
-              🌱 <strong className="text-white">Equivalent to:</strong> taking ~3,500 passenger cars off the road for an entire year.
-            </div>
-          </div>
-
-          <div className="bg-[#102D3A]/60 backdrop-blur-sm rounded-2xl p-4 border border-[#2F8F68]/30 text-left hover:border-[#2F8F68] transition-all">
-            <div className="flex items-center justify-between text-xs text-[#AEE1C2] mb-1 font-bold">
-              <span>PORT DWELL SAVED</span>
-              <Clock className="w-4 h-4 text-[#10B981]" />
-            </div>
-            <div className="text-2xl font-black text-white">4.2 Hours</div>
-            <div className="mt-2 text-xs text-slate-300 leading-snug bg-[#0B202B]/70 p-2 rounded-xl border border-white/5">
-              ⏰ <strong className="text-white">Crew Benefit:</strong> guaranteed rest window and zero idle anchorage queue.
-            </div>
-          </div>
-
-          <div className="bg-[#102D3A]/60 backdrop-blur-sm rounded-2xl p-4 border border-[#2F8F68]/30 text-left hover:border-[#2F8F68] transition-all">
-            <div className="flex items-center justify-between text-xs text-[#AEE1C2] mb-1 font-bold">
-              <span>VERIFIED GREEN FUEL</span>
-              <Fuel className="w-4 h-4 text-[#10B981]" />
-            </div>
-            <div className="text-2xl font-black text-white">94.6%</div>
-            <div className="mt-2 text-xs text-slate-300 leading-snug bg-[#0B202B]/70 p-2 rounded-xl border border-white/5">
-              📜 <strong className="text-white">Audit Proof:</strong> 100% digital bunker delivery notes with instant validation.
-            </div>
-          </div>
-
-          <div className="bg-[#102D3A]/60 backdrop-blur-sm rounded-2xl p-4 border border-[#2F8F68]/30 text-left hover:border-[#2F8F68] transition-all">
-            <div className="flex items-center justify-between text-xs text-[#AEE1C2] mb-1 font-bold">
-              <span>CORRIDOR SPAN</span>
-              <Compass className="w-4 h-4 text-[#10B981]" />
-            </div>
-            <div className="text-2xl font-black text-white">1,840 NM</div>
-            <div className="mt-2 text-xs text-slate-300 leading-snug bg-[#0B202B]/70 p-2 rounded-xl border border-white/5">
-              🌊 <strong className="text-white">Cross-Border:</strong> JNPA (India) to Singapore PSA in single shared ledger.
-            </div>
-          </div>
-
-        </div>
-
       </div>
 
       {/* =========================================================================
-          INTERACTIVE MARINER STORY & VIDEO MODAL
+          INTERACTIVE MARINER STORY & VIDEO MODAL (Polished with Subtle Depth & Rim Glow)
          ========================================================================= */}
       {isVideoModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
-          <div className="relative w-full max-w-3xl bg-[#102D3A] rounded-3xl border-2 border-[#2F8F68] shadow-2xl overflow-hidden text-left">
+          <div className="relative w-full max-w-3xl bg-[#102D3A] rounded-3xl border border-white/15 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden text-left ring-1 ring-white/10">
             {/* Header */}
             <div className="flex items-center justify-between p-5 sm:p-6 border-b border-white/10 bg-[#0B202B]/80">
               <div className="flex items-center gap-3">
@@ -817,7 +640,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   Testimonials from the Helm
                 </h4>
 
-                <div className="p-4 rounded-xl bg-[#0B202B]/80 border border-white/10 space-y-2">
+                <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-white">Capt. Rajesh Deshmukh • Master Mariner</span>
                     <span className="text-[#AEE1C2] font-semibold flex items-center gap-1">
@@ -829,7 +652,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#0B202B]/80 border border-white/10 space-y-2">
+                <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-white">Mei Lin Tan • Head of Bunker Operations, Jurong</span>
                     <span className="text-[#AEE1C2] font-semibold flex items-center gap-1">

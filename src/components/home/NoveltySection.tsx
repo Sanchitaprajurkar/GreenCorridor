@@ -44,7 +44,7 @@ export const NoveltySection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           {/* Left Column: Interconnected Architecture Graphic (5 cols) */}
-          <div className="lg:col-span-5 bg-maritime-navy/80 rounded-2xl p-6 lg:p-8 border border-maritime-border shadow-elevated relative">
+          <div className="lg:col-span-5 bg-white/[0.04] backdrop-blur-md rounded-3xl p-6 lg:p-8 border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.5)] ring-1 ring-white/5 relative">
             <div className="text-center mb-6">
               <span className="text-[11px] font-bold uppercase tracking-wider text-mint-soft block">
                 CORRIDOR DATA TOPOLOGY
@@ -95,7 +95,7 @@ export const NoveltySection: React.FC = () => {
             </div>
 
             {/* Architecture Explanatory text */}
-            <div className="mt-6 pt-4 border-t border-maritime-border/80 text-center">
+            <div className="mt-6 pt-4 border-t border-white/10 text-center">
               <p className="text-xs text-slate-muted leading-relaxed">
                 Immutable evidence chaining prevents double-counting and ensures data consistency across fuel suppliers, shipping lines, and port berths.
               </p>
@@ -107,7 +107,7 @@ export const NoveltySection: React.FC = () => {
             {NOVELTY_FEATURES.map((feat) => (
               <div
                 key={feat.title}
-                className="bg-maritime-navy/60 hover:bg-maritime-navy border border-maritime-border/80 hover:border-sustainability-green/50 rounded-xl p-5 transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-sm border border-white/10 hover:border-[#2F8F68]/60 rounded-2xl p-6 shadow-md hover:shadow-[0_8px_32px_rgba(47,143,104,0.2)] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
